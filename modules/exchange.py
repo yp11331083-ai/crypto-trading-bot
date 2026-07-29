@@ -37,9 +37,18 @@ class ExchangeClient:
             params["sandbox"] = True
 
         self.exchange = exchange_class(params)
+
+        # Bybit Demo Trading uses api-demo.bybit.com
+        if self.config.demo_trading and self.config.exchange_id == "bybit":
+            self.exchange.urls["api"] = {
+                "public": "https://api-demo.bybit.com",
+                "private": "https://api-demo.bybit.com",
+                "v5": "https://api-demo.bybit.com",
+            }
+
         logger.info(
             f"Exchange initialized: {self.config.exchange_id} "
-            f"(testnet={self.config.testnet})"
+            f"(testnet={self.config.testnet}, demo={self.config.demo_trading})"
         )
 
     def _retry_request(self, func, *args, **kwargs) -> Any:

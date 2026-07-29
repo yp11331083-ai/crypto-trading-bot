@@ -13,6 +13,7 @@ class ExchangeConfig:
     api_secret: str = ""
     exchange_id: str = "bybit"
     testnet: bool = True
+    demo_trading: bool = False
     default_type: str = "swap"
 
 
@@ -96,6 +97,7 @@ def load_config() -> AppConfig:
     config.exchange.api_secret = os.getenv("BYBIT_API_SECRET", "")
     config.exchange.exchange_id = os.getenv("EXCHANGE_ID", "bybit")
     config.exchange.testnet = os.getenv("TESTNET", "true").lower() == "true"
+    config.exchange.demo_trading = os.getenv("DEMO_TRADING", "false").lower() == "true"
 
     # Discord
     config.discord.token = os.getenv("DISCORD_BOT_TOKEN", "")
