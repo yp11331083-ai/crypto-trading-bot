@@ -1,0 +1,34 @@
+services:
+  - type: web
+    name: crypto-trading-bot
+    runtime: docker
+    plan: free
+    envVars:
+      - key: DISCORD_BOT_TOKEN
+        sync: false
+      - key: BYBIT_API_KEY
+        sync: false
+      - key: BYBIT_API_SECRET
+        sync: false
+      - key: EXCHANGE_ID
+        value: bybit
+      - key: TESTNET
+        value: "true"
+      - key: ALLOCATED_CAPITAL
+        value: "1000"
+      - key: STRATEGY_A_ENABLED
+        value: "true"
+      - key: STRATEGY_A_LEVERAGE
+        value: "5"
+      - key: STRATEGY_B_ENABLED
+        value: "true"
+      - key: STRATEGY_B_LEVERAGE
+        value: "3"
+      - key: DAILY_DRAWDOWN_LIMIT
+        value: "0.05"
+      - key: LOG_LEVEL
+        value: "INFO"
+      - key: DISCORD_LOG_CHANNEL_ID
+        sync: false
+      - key: DISCORD_ALERT_CHANNEL_ID
+        sync: false
