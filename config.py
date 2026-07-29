@@ -96,8 +96,13 @@ def load_config() -> AppConfig:
     config.exchange.api_key = os.getenv("BYBIT_API_KEY", "")
     config.exchange.api_secret = os.getenv("BYBIT_API_SECRET", "")
     config.exchange.exchange_id = os.getenv("EXCHANGE_ID", "bybit")
-    config.exchange.testnet = os.getenv("TESTNET", "true").lower() == "true"
     config.exchange.demo_trading = os.getenv("DEMO_TRADING", "false").lower() == "true"
+    # Demo trading and testnet (sandbox) are mutually exclusive in ccxt
+    # Default TESTNET to false when DEMO_TRADING is enabled
+    if config.exchange.demo_trading:
+        config.exchange.testnet = False
+    else:
+        config.exchange.testnet = os.getenv("TESTNET", "false").lower() == "true"
 
     # Discord
     config.discord.token = os.getenv("DISCORD_BOT_TOKEN", "")

@@ -33,18 +33,18 @@ class ExchangeClient:
             "options": {"defaultType": self.config.default_type},
         }
 
-        if self.config.testnet:
+        # Demo trading uses ccxt's built-in enable_demo_trading (NOT sandbox/testnet)
+        # sandbox=True is for Bybit Testnet only, and will conflict with demo trading
+        if self.config.testnet and not self.config.demo_trading:
             params["sandbox"] = True
 
         self.exchange = exchange_class(params)
 
-        # Bybit Demo Trading uses api-demo.bybit.com
+        # Use ccxt built-in method for Bybit Demo Trading
+        # This correctly sets api-demo.bybit.com URLs internally
         if self.config.demo_trading and self.config.exchange_id == "bybit":
-            self.exchange.urls["api"] = {
-                "public": "https://api-demo.bybit.com",
-                "private": "https://api-demo.bybit.com",
-                "v5": "https://api-demo.bybit.com",
-            }
+            self.exchange.enable_demo_trading(True)
+            logger.info("Demo Trading enabled via ccxt enable_demo_trading(True)")
 
         logger.info(
             f"Exchange initialized: {self.config.exchange_id} "
