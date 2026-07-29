@@ -9,8 +9,8 @@ from typing import Optional
 
 @dataclass
 class ExchangeConfig:
-    api_key: str
-    api_secret: str
+    api_key: str = ""
+    api_secret: str = ""
     exchange_id: str = "bybit"
     testnet: bool = True
     default_type: str = "swap"
