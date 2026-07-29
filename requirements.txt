@@ -1,5 +1,5 @@
 discord.py>=2.3.2
 ccxt>=4.1.0
 pandas>=2.1.0
-pandas_ta>=0.3.14b
+numpy>=1.26.0
 python-dotenv>=1.0.0
